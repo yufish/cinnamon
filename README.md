@@ -55,4 +55,7 @@ Please read [docs/bugfix/readme.md](docs/bugfix/readme.md) for known problems wh
         md5sum: 74cc3b28d0b9a6f19f21b40d1bbda9e1
         sha512sum: 600c9ac9003db77845216e0454250e4c7fef0515d1fb5b3\ 
         a801c98618833fc679005ba412fd34eb7efb2b2a1601b666e3ffbe527ffdb7c76079c17d4e47f337b
+
+## Versions
     
+Note: this branch is 3.6-stable.    
