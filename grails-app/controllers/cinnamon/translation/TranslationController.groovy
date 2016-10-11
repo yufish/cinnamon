@@ -97,6 +97,9 @@ class TranslationController extends BaseController {
                     attribute, attribute_value, source_id, object_relation_type_id,
                     root_relation_type_id, target_folder_id
             )
+            luceneService.waitForIndexer() 
+            // unless we wait, a direct subsequent call to searchObjects may fail to find the new translation.
+            
             render(contentType: 'application/xml', text: translationResult
                     .toXml(include_summary))
 
@@ -140,7 +143,7 @@ class TranslationController extends BaseController {
      *         it already has an translation relation to the source object.
      */
     def checkTranslation(String attribute, String attribute_value, Long source_id,
-                         Long object_relation_type_id, Long root_relation_type_id, Long target_folder_id
+                         Long object_relation_type_id, Long root_relation_type_id
     ) {
         try {
             ObjectSystemData source = translationService.getSource(source_id)

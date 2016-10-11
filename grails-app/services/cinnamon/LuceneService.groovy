@@ -1,5 +1,6 @@
 package cinnamon
 
+import cinnamon.index.IndexJob
 import cinnamon.index.LuceneMaster
 import cinnamon.index.ResultCollector
 import cinnamon.index.queryBuilder.RegexQueryBuilder
@@ -191,16 +192,14 @@ class LuceneService {
         results.filterResultToSet(domain, itemService, validator)
     }
     
-//    void stopLuceneMasters(){
-//        luceneMasters.each{String name, LuceneMaster master ->
-//            log.debug("Stopping LuceneMAster for $name")
-//            master.sendAndContinue(new IndexCommand(type: CommandType.STOP_INDEXING)){LuceneResult result ->
-//                log.debug("stopped: ${result.failed ? 'failed' : 'ok'}")
-//                
-//            }
-//            
-//        }
-//    }
-    
+    void waitForIndexer(){
+        def jobCount = IndexJob.countByFailed(false)
+        while(jobCount > 0){
+            log.info("Waiting for indexer to finish indexing. Current active index tasks: "+jobCount)
+            Thread.sleep(2000)
+            jobCount = IndexJob.countByFailed(false)
+        }
+    }
+
     
 }
